@@ -1,5 +1,7 @@
 var express=require("express");
 var app= express();
+const token=require("./util/token");
+const salaController=require("./controllers/salaController");
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 
@@ -17,8 +19,9 @@ app.use("/",router.get("/sobre",(req,res,next)=>{
 }));
 
 app.use("/salas",router.get("/salas",async(req,res,next)=>{
+
     if(await
-    Token.checkToken(req.headers.token,req.headers.iduser,req.headers.nick)
+    token.checkToken(req.headers.token,req.headers.iduser,req.headers.nick)
         ){
             let resp= await salaController.get();
             res.status(200).send(resp);
@@ -26,6 +29,7 @@ app.use("/salas",router.get("/salas",async(req,res,next)=>{
             res.status(400).send({msg:"usuario nao autorizado"});
         }
 }));
+
 
 app.use("/entrar",router.post("/entrar",async(req, res, next)=>{
 const usuarioController= require("./controllers/usuarioController");

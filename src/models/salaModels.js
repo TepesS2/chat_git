@@ -1,20 +1,22 @@
 
 const db= require("./db");
+/*
 function listarSalas(){
     return db.findAll("sala");
 }
+*/
 
 let listarSalas= async()=>{
-let salas= await db.findAll("salas");
+let salas= await db.findAll("sala");
 return salas;
 };
 
 let buscarSala= async (idsala)=>{
-    return db.findOne("salas",idsala);
+    return db.findOne("sala",idsala);
 }
 
 let atualizarMensagens=async(sala)=>{
-    return await db.updateOne("salas",sala,{_id:sala._id});
+    return await db.updateOne("sala",sala,{_id:sala._id});
 }
 
 let buscarMensagens= async(idsala, Timestamp)=>{
